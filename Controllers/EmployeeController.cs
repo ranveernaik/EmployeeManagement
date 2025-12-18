@@ -1,4 +1,6 @@
-﻿using EmployeeManagementCore.ViewModels;
+﻿using EmployeeManagementCore.Data;
+using EmployeeManagementCore.Models;
+using EmployeeManagementCore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementCore.Controllers
@@ -23,8 +25,25 @@ namespace EmployeeManagementCore.Controllers
             {
                 return View(employeeViewModel);
             }
-            ViewBag.Message = "Employee Created Successfully!";
-            return View();
+            var Employee = new Employee
+            {
+                Id = EmployeeStore.Employees.Count + 1,
+                Name = employeeViewModel.Name,
+                Email = employeeViewModel.Email,
+                Department = employeeViewModel.Department
+            };
+
+            EmployeeStore.Employees.Add(Employee);
+
+            TempData["Success"] = "Employee Created Successfully";
+
+            return RedirectToAction("EmployeeList");
+        }
+
+        [HttpGet]
+        public IActionResult EmployeeList()
+        {
+            return View(EmployeeStore.Employees);
         }
     }
 }
