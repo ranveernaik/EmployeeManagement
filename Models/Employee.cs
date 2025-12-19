@@ -1,4 +1,5 @@
-﻿namespace EmployeeManagementCore.Models
+﻿//----------------------------Day02---------------------------------------------
+namespace EmployeeManagementCore.Models
 {
     public class Employee
     {

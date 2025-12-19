@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+//--------------------------------------------Day02--------------------------------
 namespace EmployeeManagementCore.ViewModels
 {
     public class EmployeeViewModel

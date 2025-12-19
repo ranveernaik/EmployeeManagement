@@ -3,5 +3,24 @@
 *@
 @{
 }
-<h1>Employee</h1>
+
+@model List<EmployeeManagementCore.Models.Employee>
+
+<h2>Employee</h2>
 <p>This is Employee Page</p>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Department</th>
+    </tr>
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.Id</td>
+            <td>@emp.Name</td>
+            <td>@emp.Department</td>
+        </tr>
+    }
+</table>
