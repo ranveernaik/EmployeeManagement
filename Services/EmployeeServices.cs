@@ -1,16 +1,23 @@
-﻿using EmployeeManagementCore.Models;
+﻿//--------------------------------------------------Day04-----------------------------------------
+
+using EmployeeManagementCore.Datab;
+using EmployeeManagementCore.Models;
 
 namespace EmployeeManagementCore.Services
 {
     public class EmployeeServices : IEmployeeServices
     {
+
+        private readonly AppDbContext appDbContext;
+
+        public EmployeeServices(AppDbContext context)
+        {
+            appDbContext = context;
+
+        }
         public List<Employee> GetAllEmployees()
         {
-            return new List<Employee>
-            {
-                new Employee {Name = "RRN", Email = "rrn@gmail.com", Department = "HR"},
-                new Employee {Name = "ABC", Email = "abc@gmail.com", Department = "Tech"},
-            };
+            return appDbContext.Employees.ToList();
         }
     }
 }
