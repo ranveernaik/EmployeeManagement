@@ -39,12 +39,39 @@ namespace EmployeeManagementCore.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult EmployeeList()
+        public IActionResult Edit(int id)
         {
-            return View(EmployeeStore.Employees);
+            var employee = employeeServices.GetEmployee(id);
+            if (employee == null)
+                return NotFound();
+            return View(employee);
         }
 
-     
+        [HttpPost]
+        public IActionResult Edit(Employee employee)
+        {
+            if(!ModelState.IsValid)
+            {
+                return View(employee);
+            }
+
+            employeeServices.UpdateEmployee(employee);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var employee = employeeServices.GetEmployee(id);
+            if(employee == null)
+                return NotFound();
+            return View(employee);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            employeeServices.DeleteEmployee(id);
+            return RedirectToAction("Index");
+        }
     }
 }

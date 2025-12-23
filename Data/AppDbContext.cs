@@ -2,7 +2,7 @@
 using EmployeeManagementCore.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace EmployeeManagementCore.Datab
+namespace EmployeeManagementCore.Data
 {
     public class AppDbContext : DbContext
     {

@@ -1,4 +1,4 @@
-using EmployeeManagementCore.Datab;
+using EmployeeManagementCore.Data;
 using EmployeeManagementCore.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
