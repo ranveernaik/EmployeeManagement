@@ -5,7 +5,7 @@
 }
 @* ---------------------------------------Day02-------------------------------
  *@
- @model EmployeeManagementCore.ViewModels.EmployeeViewModel
+ @model EmployeeManagementCore.Models.Employee
 
 <h2>Create Employee</h2>
 <form asp-action="Create" method="post">
@@ -27,3 +27,6 @@
     <button type="submit">SAVE</button>
 </form>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

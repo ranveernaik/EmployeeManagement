@@ -19,5 +19,11 @@ namespace EmployeeManagementCore.Services
         {
             return appDbContext.Employees.ToList();
         }
+
+        public void AddEmployee(Employee employee)
+        {
+            appDbContext.Employees.Add(employee);
+            appDbContext.SaveChanges();
+        }
     }
 }

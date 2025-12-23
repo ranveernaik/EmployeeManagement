@@ -8,14 +8,17 @@ namespace EmployeeManagementCore.Controllers
 {
     public class EmployeeController : Controller
     {
-        //----------------------------Day01-----------------------------------------------
-        public IActionResult Index()
+        public readonly IEmployeeServices employeeServices;
+        public EmployeeController(IEmployeeServices services)
         {
-            var employees = employeeServices.GetAllEmployees(); //-------Day 04
-            return View(employees); //--------Day04
+            employeeServices = services;
         }
 
-        //---------------------------------Day02---------------------------------------------
+        public IActionResult Index()
+        {
+            var employees = employeeServices.GetAllEmployees();
+            return View(employees);
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -24,27 +27,16 @@ namespace EmployeeManagementCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(EmployeeViewModel employeeViewModel)
+        public IActionResult Create(Employee employee)
         {
             if (!ModelState.IsValid)
             {
-                return View(employeeViewModel);
+                return View(employee);
             }
 
-            //--------------------------------------Day03------------------------------------------
-            var Employee = new Employee
-            {
-                Id = EmployeeStore.Employees.Count + 1,
-                Name = employeeViewModel.Name,
-                Email = employeeViewModel.Email,
-                Department = employeeViewModel.Department
-            };
+            employeeServices.AddEmployee(employee);
 
-            EmployeeStore.Employees.Add(Employee);
-
-            TempData["Success"] = "Employee Created Successfully";
-
-            return RedirectToAction("EmployeeList");
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
@@ -53,11 +45,6 @@ namespace EmployeeManagementCore.Controllers
             return View(EmployeeStore.Employees);
         }
 
-//--------------------------------------------Day04---------------------------------------
-        public readonly IEmployeeServices employeeServices;
-        public EmployeeController(IEmployeeServices services)
-        {
-            employeeServices = services;
-        }
+     
     }
 }
