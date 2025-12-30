@@ -2,6 +2,7 @@
 using EmployeeManagementCore.Models;
 using EmployeeManagementCore.Services;
 using EmployeeManagementCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagementCore.Controllers
