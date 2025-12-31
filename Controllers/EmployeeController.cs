@@ -10,14 +10,17 @@ namespace EmployeeManagementCore.Controllers
     public class EmployeeController : Controller
     {
         public readonly IEmployeeServices employeeServices;
-        public EmployeeController(IEmployeeServices services)
+        public readonly ILogger<EmployeeController> employeeLogger;
+        public EmployeeController(IEmployeeServices services, ILogger<EmployeeController> logger)
         {
             employeeServices = services;
+            employeeLogger = logger;
         }
 
         public IActionResult Index()
         {
             var employees = employeeServices.GetAllEmployees();
+            employeeLogger.LogInformation("Getting Employees");
             return View(employees);
         }
 
@@ -34,17 +37,29 @@ namespace EmployeeManagementCore.Controllers
             {
                 return View(employee);
             }
+            try 
+            {
+                employeeServices.AddEmployee(employee);
 
-            employeeServices.AddEmployee(employee);
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                employeeLogger.LogError(ex, "Error while adding employee");
+                return RedirectToAction("Error", "Error");
+            }
 
-            return RedirectToAction("Index");
+            
         }
 
         public IActionResult Edit(int id)
         {
             var employee = employeeServices.GetEmployee(id);
             if (employee == null)
+            {
+                employeeLogger.LogWarning("Employee Not Found. Id : {Id}", id);
                 return NotFound();
+            }
             return View(employee);
         }
 
